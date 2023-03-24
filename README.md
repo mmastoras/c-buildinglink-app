@@ -1,7 +1,7 @@
 # HelloWorld
 net6.0 HelloWorld app.
 
-## source
+### source
 this created a web app that failed to build in the way BL is building in their docker images so....
 
 ran the following to create the C# code for a simply web app, assumes you have net6.0 installed locally
@@ -9,14 +9,14 @@ ran the following to create the C# code for a simply web app, assumes you have n
 $ dotnet new webapp -o HelloWorld --no-https -f net6.0
 ```
 
-## next attempt
+### next attempt
 this also doesn't create anything looking like the BL source, particular they are missing the main() which is what the build error 
 
 ```
 $ dotnet new console -o HelloWorld -f net6.0
 ```
 
-## build the image 
+## Image 
 
 ### login to github packages
 
@@ -48,4 +48,4 @@ This results in the following build error
 ```
 
 ## For later
-deployment manifest example https://github.com/BuildingLink/Amenities/blob/master/deployment/fleet/dev/deployment-api.yaml
+deployment manifest [example](https://github.com/BuildingLink/Amenities/blob/master/deployment/fleet/dev/deployment-api.yaml)
