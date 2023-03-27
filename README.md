@@ -17,7 +17,12 @@ export GITHUB_TOKEN=<your github token>
 $ cat $GITHUB_TOKEN | docker login ghcr.io -u <your github username> --password-stdin
 $ docker build -t helloworld-aspnet-3 --build-arg GITHUB_TOKEN=$GITHUB_TOKEN -f deployment/Dockerfile .
 $ docker run -it -p 8080:5000 helloworld-aspnet-3:latest
+Hosting environment: Production
+Content root path: /helloworld
+Now listening on: http://localhost:5000
 ```
+
+Browse to http://localhost:8080
 
 ## For later
 deployment manifest [example](https://github.com/BuildingLink/Amenities/blob/master/deployment/fleet/dev/deployment-api.yaml)
