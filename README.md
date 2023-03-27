@@ -18,9 +18,9 @@ These assume you are running on M1 chip (amd64), if you are not then remove the 
 #### BL netcore 3.1
 ```
 export GITHUB_TOKEN=<your github token>
-$ cat $GITHUB_TOKEN | docker login ghcr.io -u <your github username> --password-stdin
+$ echo $GITHUB_TOKEN | docker login ghcr.io -u <your github username> --password-stdin
 $ docker build -t helloworld-netcore-3 --build-arg GITHUB_TOKEN=$GITHUB_TOKEN --platform=linux/amd64 -f deployment/Dockerfile .
-$ docker run -it -p 8080:5000 --platform=linux/amd64 helloworld-netcore-3:latest
+$ docker run -it -p 8080:80 -e ASPNETCORE_URLS=http://+:80 --platform=linux/amd64 helloworld-netcore-3:latest
 Hosting environment: Production
 Content root path: /helloworld
 Now listening on: http://localhost:5000
@@ -29,16 +29,13 @@ Now listening on: http://localhost:5000
 #### BL netcore 6.0 
 ```
 export GITHUB_TOKEN=<your github token>
-$ cat $GITHUB_TOKEN | docker login ghcr.io -u <your github username> --password-stdin
+$ echo $GITHUB_TOKEN | docker login ghcr.io -u <your github username> --password-stdin
 $ docker build -t helloworld-netcore-6 --build-arg GITHUB_TOKEN=$GITHUB_TOKEN --platform=linux/amd64 -f deployment/Dockerfile-6.0 .
-$ docker run -it -p 8080:5000 --platform=linux/amd64 helloworld-netcore-6:latest
-Hosting environment: Production
-Content root path: /helloworld
-Now listening on: http://localhost:8080
+$ docker run -it -p 8080:80 -e ASPNETCORE_URLS=http://+:80 --platform=linux/amd64 helloworld-netcore-6:latest
 warn: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[35]
-      No XML encryptor configured. Key {158260ac-0507-440b-85b3-2155135fddc2} may be persisted to storage in unencrypted form.
+      No XML encryptor configured. Key {2a78d845-7727-48c3-862c-53360a1a18b6} may be persisted to storage in unencrypted form.
 info: Microsoft.Hosting.Lifetime[14]
-      Now listening on: http://localhost:5000
+      Now listening on: http://[::]:80
 info: Microsoft.Hosting.Lifetime[0]
       Application started. Press Ctrl+C to shut down.
 info: Microsoft.Hosting.Lifetime[0]
@@ -50,9 +47,8 @@ info: Microsoft.Hosting.Lifetime[0]
 #### BL ms netcore images
 ```
 export GITHUB_TOKEN=<your github token>
-$ cat $GITHUB_TOKEN | docker login ghcr.io -u <your github username> --password-stdin
 $ docker build -t helloworld-ms-netcore-6 --build-arg GITHUB_TOKEN=$GITHUB_TOKEN -f deployment/Dockerfile-ms-6.0 .
-$ docker run -it -p 8080:80 -e ASPNETCORE_hostBuilder__reloadConfigOnChange=false -e ELSA__SERVER__BASEURL='http://localhost:8080' -e ASPNETCORE_ENVIRONMENT='Development' helloworld-ms-netcore-6:latest
+$ docker run -it -p 8080:80 -e ASPNETCORE_hostBuilder__reloadConfigOnChange=false helloworld-ms-netcore-6:latest
 warn: Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository[60]
       Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
 warn: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[35]
