@@ -1,22 +1,10 @@
 # HelloWorld
-net6.0 HelloWorld app.
+net3.x HelloWorld app, version BL/Inspections currently using
 
 ### source
-this created a web app that failed to build in the way BL is building in their docker images so....
+found an old helloworld app based on netcore 3.x framework. https://github.com/cloudfoundry-samples/dotnet-core-hello-world
 
-ran the following to create the C# code for a simply web app, assumes you have net6.0 installed locally
-```
-$ dotnet new webapp -o HelloWorld --no-https -f net6.0
-```
-
-### next attempt
-this also doesn't create anything looking like the BL source, particular they are missing the main() which is what the build error 
-
-```
-$ dotnet new console -o HelloWorld -f net6.0
-```
-
-## Image 
+## Image build and run
 
 ### login to github packages
 
@@ -30,7 +18,6 @@ $ cat $GITHUB_TOKEN | docker login ghcr.io -u <your github username> --password-
 $ docker build -t helloworld-aspnet-3 --build-arg GITHUB_TOKEN=$GITHUB_TOKEN -f deployment/Dockerfile .
 $ docker run -it -p 8080:5000 helloworld-aspnet-3:latest
 ```
-
 
 ## For later
 deployment manifest [example](https://github.com/BuildingLink/Amenities/blob/master/deployment/fleet/dev/deployment-api.yaml)
