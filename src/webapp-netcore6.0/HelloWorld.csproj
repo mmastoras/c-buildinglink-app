@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>HelloWorld</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>HelloWorld</PackageId>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>

@@ -1,6 +1,5 @@
-ARG DOTNET_VERSION_TAG=3.1-alpine3.15
-
-FROM ghcr.io/buildinglink/dotnet-sdk:$DOTNET_VERSION_TAG AS build
+ARG DOTNET_VERSION_TAG=6.0
+FROM mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION_TAG AS build
 
 ARG GITHUB_TOKEN
 RUN dotnet nuget add source https://nuget.pkg.github.com/buildinglink/index.json --name github.com --username github --password $GITHUB_TOKEN --store-password-in-clear-text
@@ -8,7 +7,7 @@ RUN dotnet nuget add source https://nuget.pkg.github.com/buildinglink/index.json
 WORKDIR /src
 
 #--- building application ---------------------
-COPY src/webapp-netcore3.1 ./
+COPY src/webapp-netcore6.0 ./
 
 RUN dotnet build -c Release
 
@@ -17,13 +16,14 @@ FROM build AS publishApi
 RUN dotnet publish --no-build -c Release -o /app/publish
 
 #--- final setup ------------------------------
-FROM ghcr.io/buildinglink/dotnet-aspnet:$DOTNET_VERSION_TAG AS final
+FROM mcr.microsoft.com/dotnet/aspnet:$DOTNET_VERSION_TAG AS final
 
 COPY --from=publishApi /app/publish /helloworld/
 
 WORKDIR /helloworld/
 
-EXPOSE 5000
+ENV PORT 80
+EXPOSE 80
 
 ENTRYPOINT ["dotnet"]
 CMD ["HelloWorld.dll"]
