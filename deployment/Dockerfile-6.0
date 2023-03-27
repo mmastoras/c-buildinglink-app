@@ -1,5 +1,4 @@
-ARG DOTNET_VERSION_TAG=3.1-alpine3.15
-
+ARG DOTNET_VERSION_TAG=6.0-alpine3.15
 FROM ghcr.io/buildinglink/dotnet-sdk:$DOTNET_VERSION_TAG AS build
 
 ARG GITHUB_TOKEN
@@ -8,7 +7,7 @@ RUN dotnet nuget add source https://nuget.pkg.github.com/buildinglink/index.json
 WORKDIR /src
 
 #--- building application ---------------------
-COPY src/webapp-netcore3.1 ./
+COPY src/webapp-netcore6.0 ./
 
 RUN dotnet build -c Release
 

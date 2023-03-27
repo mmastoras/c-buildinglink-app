@@ -12,11 +12,26 @@ Create a github personal access token w/ read privileges to github packages. Ins
 
 
 ### build and run the image
+These assume you are running on M1 chip (amd64), if you are not then remove the following from the build and run commands
+`--platform=linux/amd64`
+
+#### netcore 3.1
 ```
 export GITHUB_TOKEN=<your github token>
 $ cat $GITHUB_TOKEN | docker login ghcr.io -u <your github username> --password-stdin
-$ docker build -t helloworld-aspnet-3 --build-arg GITHUB_TOKEN=$GITHUB_TOKEN -f deployment/Dockerfile .
-$ docker run -it -p 8080:5000 helloworld-aspnet-3:latest
+$ docker build -t helloworld-netcore-3 --build-arg GITHUB_TOKEN=$GITHUB_TOKEN --platform=linux/amd64 -f deployment/Dockerfile .
+$ docker run -it -p 8080:5000 --platform=linux/amd64 helloworld-netcore-3:latest
+Hosting environment: Production
+Content root path: /helloworld
+Now listening on: http://localhost:5000
+```
+
+#### netcore 6.0 
+```
+export GITHUB_TOKEN=<your github token>
+$ cat $GITHUB_TOKEN | docker login ghcr.io -u <your github username> --password-stdin
+$ docker build -t helloworld-netcore-6 --build-arg GITHUB_TOKEN=$GITHUB_TOKEN --platform=linux/amd64 -f deployment/Dockerfile-6.0 .
+$ docker run -it -p 8080:5000 --platform=linux/amd64 helloworld-netcore-6:latest
 Hosting environment: Production
 Content root path: /helloworld
 Now listening on: http://localhost:5000
