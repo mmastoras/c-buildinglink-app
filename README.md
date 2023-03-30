@@ -19,7 +19,7 @@ These assume you are running on M1 chip (amd64), if you are not then remove the 
 ```
 export GITHUB_TOKEN=<your github token>
 $ echo $GITHUB_TOKEN | docker login ghcr.io -u <your github username> --password-stdin
-$ docker build -t helloworld-netcore-3 --build-arg GITHUB_TOKEN=$GITHUB_TOKEN --platform=linux/amd64 -f deployment/Dockerfile .
+$ docker build -t helloworld-netcore-3 --build-arg GITHUB_TOKEN=$GITHUB_TOKEN --platform=linux/amd64 -f deployment/Dockerfile-3.1 .
 $ docker run -it -p 8080:80 -e ASPNETCORE_URLS=http://+:80 --platform=linux/amd64 helloworld-netcore-3:latest
 Hosting environment: Production
 Content root path: /helloworld
